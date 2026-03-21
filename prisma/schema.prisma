@@ -1,0 +1,46 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String?
+  image         String?
+  plan          String    @default("free") // free | pro | team
+  sheetsCount   Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sheets        Sheet[]
+  payments      Payment[]
+}
+
+model Sheet {
+  id          String   @id @default(cuid())
+  name        String
+  prompt      String
+  data        String   // JSON stringified SheetData
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  razorpayOrderId String?
+  razorpayPayId   String?
+  amount          Int
+  plan            String
+  status          String   @default("pending") // pending | success | failed
+  createdAt       DateTime @default(now())
+}
