@@ -167,7 +167,7 @@ export default function Home() {
                 data={sheet}
                 onRegen={() => generate(prompt)}
                 onImprove={() => generate(`Improve and add more detail to: ${prompt}`)}
-                canExportAll={session?.user !== undefined}
+                canExportAll={true}
               />
               <button onClick={handleSave} disabled={saving || !session} className="btn btn-secondary text-[12px] py-1.5 px-3">
                 {saving ? "Saving…" : session ? "💾 Save" : "Sign in to save"}
