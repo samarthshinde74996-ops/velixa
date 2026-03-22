@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: { default: "Velixa — Describe it. We'll build it.", template: "%s | Velixa" },
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased">
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
