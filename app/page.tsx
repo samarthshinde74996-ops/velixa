@@ -12,7 +12,7 @@ import ExportButtons from "@/components/ExportButtons";
 import ChatEditor from "@/components/ChatEditor";
 import TemplateGallery from "@/components/TemplateGallery";
 import { SheetData } from "@/lib/spreadsheet-utils";
-
+import { Analytics } from '@vercel/analytics/react';
 type AppState = "landing" | "loading" | "sheet";
 
 export default function Home() {
