@@ -43,6 +43,19 @@ export default function DashboardPage() {
     } finally { setDeleting(null); }
   }
 
+  async function shareSheet(id: string) {
+    const res = await fetch("/api/share-sheet", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sheetId: id }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      navigator.clipboard.writeText(data.url);
+      toast.success("Share link copied! 🔗");
+    }
+  }
+
   function formatDate(d: string) {
     return new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
   }
@@ -53,7 +66,10 @@ export default function DashboardPage() {
         <Navbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <svg className="animate-spin w-8 h-8 text-[#6c63ff] mx-auto mb-4" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+            <svg className="animate-spin w-8 h-8 text-[#6c63ff] mx-auto mb-4" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+            </svg>
             <p className="text-[#7a7a9a] font-mono text-[13px]">Loading dashboard…</p>
           </div>
         </div>
@@ -100,7 +116,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between bg-[rgba(108,99,255,0.08)] border border-[rgba(108,99,255,0.25)] rounded-xl p-4 mb-8 fade-up-delay-1">
             <div>
               <p className="text-white font-medium text-[14px]">You're on the Free plan</p>
-              <p className="text-[#7a7a9a] text-[12px] mt-0.5">{Math.max(0, 5 - count)} sheets remaining this month · Upgrade for unlimited</p>
+              <p className="text-[#7a7a9a] text-[12px] mt-0.5">{Math.max(0, 5 - count)} sheets remaining · Upgrade for unlimited</p>
             </div>
             <Link href="/pricing" className="btn btn-primary text-[13px] py-2 px-4 whitespace-nowrap">Upgrade →</Link>
           </div>
@@ -136,10 +152,16 @@ export default function DashboardPage() {
                   </div>
                   <div className="flex items-center justify-between mt-auto pt-3 border-t border-[#2a2a3a]">
                     <span className="text-[11px] text-[#3a3a5a] font-mono">{formatDate(sheet.createdAt)}</span>
-                    <Link href={`/?prompt=${encodeURIComponent(sheet.prompt)}`}
-                      className="text-[12px] text-[#6c63ff] hover:underline font-medium">
-                      Regenerate →
-                    </Link>
+                    <div className="flex items-center gap-3">
+                      <button onClick={() => shareSheet(sheet.id)}
+                        className="text-[12px] text-[#00d4aa] hover:underline font-medium">
+                        🔗 Share
+                      </button>
+                      <Link href={`/?prompt=${encodeURIComponent(sheet.prompt)}`}
+                        className="text-[12px] text-[#6c63ff] hover:underline font-medium">
+                        Regenerate →
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
