@@ -1,4 +1,5 @@
 "use client";
+import SheetChart from "@/components/SheetChart";
 import { useState, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -12,7 +13,8 @@ import ExportButtons from "@/components/ExportButtons";
 import ChatEditor from "@/components/ChatEditor";
 import TemplateGallery from "@/components/TemplateGallery";
 import { SheetData } from "@/lib/spreadsheet-utils";
-import { Analytics } from '@vercel/analytics/react';
+
+
 type AppState = "landing" | "loading" | "sheet";
 
 export default function Home() {
@@ -177,9 +179,12 @@ export default function Home() {
           </div>
 
           {/* Sheet */}
-          <div className="flex-1 min-h-0 overflow-hidden bg-[#0d0d14]">
-            <SpreadsheetViewer data={sheet} onDataChange={setSheet} />
-          </div>
+<div className="flex-1 min-h-0 overflow-hidden bg-[#0d0d14] flex flex-col">
+  <div className="flex-1 min-h-0 overflow-hidden">
+    <SpreadsheetViewer data={sheet} onDataChange={setSheet} />
+  </div>
+  <SheetChart data={sheet} />
+</div>
 
           <ChatEditor data={sheet} onUpdate={setSheet} />{/* Bottom prompt bar */}
           <div className="px-4 py-3 bg-[#111118] border-t border-[#2a2a3a] flex-shrink-0">
