@@ -117,6 +117,11 @@ export const TEMPLATES = [
   { emoji: "🎓", label: "Attendance Sheet", prompt: "Student attendance sheet for 30 students with daily attendance, present days, absent days, and attendance percentage" },
   { emoji: "🧾", label: "Invoice Template", prompt: "Freelancer invoice template with item description, quantity, unit price, GST 18%, and grand total" },
   { emoji: "📦", label: "Inventory Tracker", prompt: "Product inventory tracker with SKU, item name, quantity, reorder level, unit cost, total value, and low stock alert" },
+  { emoji: "🇮🇳", label: "ITR Filing", prompt: "ITR income tax return filing sheet with salary income, house rent allowance, deductions under 80C, 80D, taxable income, and tax payable calculation for India" },
+  { emoji: "📒", label: "Tally Export", prompt: "Tally accounting export format with voucher date, ledger name, debit amount, credit amount, narration, voucher type for Indian accounting" },
+  { emoji: "🏭", label: "MSME GST Sheet", prompt: "MSME small business GST sheet with invoice number, party name, GSTIN, taxable amount, CGST 9%, SGST 9%, IGST, and total invoice value" },
+  { emoji: "📝", label: "Report Card", prompt: "School student report card for 40 students with 6 subjects marks out of 100, total marks, percentage, grade A B C D F, and pass fail status" },
+  { emoji: "🏏", label: "Cricket Scorecard", prompt: "Cricket match scorecard with batsman name, runs scored, balls faced, fours, sixes, strike rate, and bowling figures with overs wickets runs economy" },
 ];
 
 export const PLANS = [
