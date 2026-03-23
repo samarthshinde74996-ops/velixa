@@ -156,3 +156,54 @@ body {
   box-shadow: 0 0 40px rgba(108,99,255,0.2);
   position: relative;
 }
+/* ── Themes ────────────────────────────────────────────────────────── */
+.theme-ocean {
+  --bg: #020b18;
+  --surface: #041628;
+  --surface2: #062040;
+  --border: #0a3060;
+  --accent: #0ea5e9;
+  --accent2: #06b6d4;
+  --text: #e0f2fe;
+  --muted: #7ab8d4;
+}
+.theme-sunset {
+  --bg: #150a00;
+  --surface: #1f1000;
+  --surface2: #2d1800;
+  --border: #4a2800;
+  --accent: #f97316;
+  --accent2: #fbbf24;
+  --text: #fff7ed;
+  --muted: #c4956a;
+}
+.theme-forest {
+  --bg: #020d06;
+  --surface: #041a0a;
+  --surface2: #062612;
+  --border: #0a3d1c;
+  --accent: #22c55e;
+  --accent2: #4ade80;
+  --text: #f0fdf4;
+  --muted: #6abf82;
+}
+.theme-purple {
+  --bg: #0d0014;
+  --surface: #160020;
+  --surface2: #20002e;
+  --border: #3b0060;
+  --accent: #a855f7;
+  --accent2: #c084fc;
+  --text: #faf5ff;
+  --muted: #b07ad4;
+}
+.theme-dark {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a24;
+  --border: #2a2a3a;
+  --accent: #6c63ff;
+  --accent2: #00d4aa;
+  --text: #f0f0f8;
+  --muted: #7a7a9a;
+}
