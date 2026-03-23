@@ -27,6 +27,7 @@ export default function Navbar() {
           {[
             { href: "/", label: "Home" },
             { href: "/pricing", label: "Pricing" },
+            { href: "/bulk", label: "Bulk" },
           ].map((item) => (
             <Link key={item.href} href={item.href}
               className={`px-4 py-2 rounded-lg text-[14px] transition-colors ${isActive(item.href) ? "text-white bg-[#1a1a24]" : "text-[#7a7a9a] hover:text-white hover:bg-[#1a1a24]"}`}>
