@@ -207,3 +207,11 @@ body {
   --text: #f0f0f8;
   --muted: #7a7a9a;
 }
+/* ── Mobile Fixes ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  h1 { font-size: 2.2rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  .btn { padding: 8px 14px !important; font-size: 13px !important; }
+  .sheet-table th, .sheet-table td { padding: 5px 8px !important; font-size: 11px !important; }
+  .glow-card { padding: 16px !important; }
+}

@@ -96,7 +96,7 @@ export default function Home() {
             </p>
 
             {/* Stats */}
-            <div className="flex items-center justify-center gap-10 mb-10">
+            <div className="flex items-center justify-center gap-6 sm:gap-10 mb-10 flex-wrap">
               {[["~2s", "Generation"], ["95%", "Accuracy"], ["3", "Export formats"]].map(([n, l]) => (
                 <div key={l} className="text-center">
                   <div className="font-display text-2xl font-bold text-white">{n}</div>

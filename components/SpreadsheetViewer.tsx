@@ -71,7 +71,7 @@ export default function SpreadsheetViewer({ data, onDataChange }: { data: SheetD
     if (col.type === "formula" && col.formula) {
       const val = resolveFormula(col.formula, ri + 2, row);
       return (
-        <td key={ci} className="fx px-3 py-[6px] border border-[rgba(42,42,58,0.5)] text-right font-mono text-[12px]" style={{ minWidth: col.width ?? 120 }}>
+        <td key={ci} className="fx px-2 sm:px-3 py-[6px] border border-[rgba(42,42,58,0.5)] text-right font-mono text-[11px] sm:text-[12px]" style={{ minWidth: col.width ?? 100 }}>
           {val}
         </td>
       );
@@ -87,16 +87,16 @@ export default function SpreadsheetViewer({ data, onDataChange }: { data: SheetD
           onChange={(e) => setEditVal(e.target.value)}
           onBlur={() => commit(ri, ci)}
           onKeyDown={(e) => { if (e.key === "Enter" || e.key === "Tab") commit(ri, ci); if (e.key === "Escape") setEditCell(null); }}
-          className="px-3 py-[6px] bg-[rgba(108,99,255,0.1)] text-white outline-none font-mono text-[12px]"
-          style={{ width: col.width ?? 120 }} />
+          className="px-2 py-[6px] bg-[rgba(108,99,255,0.1)] text-white outline-none font-mono text-[11px] sm:text-[12px]"
+          style={{ width: col.width ?? 100 }} />
       </td>
     );
 
     return (
       <td key={ci}
         onDoubleClick={() => { setEditCell({ r: ri, c: ci }); setEditVal(String(raw ?? "")); }}
-        className={`px-3 py-[6px] border border-[rgba(42,42,58,0.5)] cursor-text hover:bg-[rgba(108,99,255,0.05)] text-[13px] font-mono ${isNum ? "num" : ""}`}
-        style={{ minWidth: col.width ?? 120 }}>
+        className={`px-2 sm:px-3 py-[6px] border border-[rgba(42,42,58,0.5)] cursor-text hover:bg-[rgba(108,99,255,0.05)] text-[11px] sm:text-[12px] font-mono ${isNum ? "num" : ""}`}
+        style={{ minWidth: col.width ?? 100 }}>
         {display || <span className="text-[#3a3a5a]">—</span>}
       </td>
     );
@@ -104,30 +104,30 @@ export default function SpreadsheetViewer({ data, onDataChange }: { data: SheetD
 
   return (
     <div className="flex flex-col h-full">
-      {/* Toolbar - Undo/Redo */}
-      <div className="flex items-center gap-2 px-4 py-2 bg-[#111118] border-b border-[#2a2a3a] flex-shrink-0">
-        <button onClick={undo} title="Undo (Ctrl+Z)"
-          className="btn btn-ghost text-[12px] py-1 px-2 font-mono"
+      {/* Undo/Redo Toolbar */}
+      <div className="flex items-center gap-2 px-2 sm:px-4 py-2 bg-[#111118] border-b border-[#2a2a3a] flex-shrink-0 overflow-x-auto">
+        <button onClick={undo} title="Undo"
+          className="btn btn-ghost text-[11px] sm:text-[12px] py-1 px-2 font-mono whitespace-nowrap"
           disabled={historyIdx.current <= 0}>
           ↩ Undo
         </button>
         <button onClick={redo} title="Redo"
-          className="btn btn-ghost text-[12px] py-1 px-2 font-mono"
+          className="btn btn-ghost text-[11px] sm:text-[12px] py-1 px-2 font-mono whitespace-nowrap"
           disabled={historyIdx.current >= history.current.length - 1}>
           ↪ Redo
         </button>
         <div className="w-px h-4 bg-[#2a2a3a] mx-1" />
-        <span className="text-[11px] text-[#3a3a5a] font-mono">
+        <span className="text-[10px] text-[#3a3a5a] font-mono whitespace-nowrap">
           {historyIdx.current > 0 ? `${historyIdx.current} change${historyIdx.current > 1 ? "s" : ""}` : "No changes"}
         </span>
       </div>
 
       {/* Formula bar */}
-      <div className="flex items-center gap-3 px-4 py-2 bg-[#111118] border-b border-[#2a2a3a] text-[11px] font-mono flex-shrink-0">
-        <span className="text-[#7a7a9a] w-8">{editCell ? `${COLS[editCell.c]}${editCell.r + 2}` : "A1"}</span>
+      <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 bg-[#111118] border-b border-[#2a2a3a] text-[10px] sm:text-[11px] font-mono flex-shrink-0">
+        <span className="text-[#7a7a9a] w-6 sm:w-8">{editCell ? `${COLS[editCell.c]}${editCell.r + 2}` : "A1"}</span>
         <span className="w-px h-4 bg-[#2a2a3a]" />
         <span className="text-[#6c63ff] flex-1 truncate">{editCell ? editVal : (data.columns[0]?.formula ?? data.columns[0]?.header ?? "")}</span>
-        <span className="text-[#3a3a5a]">{rows.length}r × {data.columns.length}c</span>
+        <span className="text-[#3a3a5a] whitespace-nowrap">{rows.length}r × {data.columns.length}c</span>
       </div>
 
       {/* Table */}
@@ -135,14 +135,14 @@ export default function SpreadsheetViewer({ data, onDataChange }: { data: SheetD
         <table className="sheet-table">
           <thead>
             <tr>
-              <th className="w-10 text-center text-[9px] text-[#3a3a5a]">#</th>
+              <th className="w-8 sm:w-10 text-center text-[9px] text-[#3a3a5a]">#</th>
               {data.columns.map((col, ci) => (
-                <th key={ci} style={{ minWidth: col.width ?? 120 }}>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[#3a3a5a] text-[9px]">{COLS[ci]}</span>
-                    <span className="text-[#a0a0c0]">{col.header}</span>
-                    {col.type === "formula" && <span className="ml-auto text-[9px] badge badge-green py-0 px-1">fx</span>}
-                    {(col.type === "currency" || col.type === "number") && <span className="ml-auto text-[9px] badge badge-accent py-0 px-1">₹</span>}
+                <th key={ci} style={{ minWidth: col.width ?? 100 }}>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[#3a3a5a] text-[9px] hidden sm:block">{COLS[ci]}</span>
+                    <span className="text-[#a0a0c0] text-[10px] sm:text-[11px] truncate">{col.header}</span>
+                    {col.type === "formula" && <span className="ml-auto text-[9px] badge badge-green py-0 px-1 hidden sm:block">fx</span>}
+                    {(col.type === "currency" || col.type === "number") && <span className="ml-auto text-[9px] badge badge-accent py-0 px-1 hidden sm:block">₹</span>}
                   </div>
                 </th>
               ))}
@@ -160,9 +160,10 @@ export default function SpreadsheetViewer({ data, onDataChange }: { data: SheetD
       </div>
 
       {/* Sheet tabs */}
-      <div className="flex items-center gap-1 px-4 py-2 bg-[#111118] border-t border-[#2a2a3a] flex-shrink-0 overflow-x-auto">
+      <div className="flex items-center gap-1 px-2 sm:px-4 py-2 bg-[#111118] border-t border-[#2a2a3a] flex-shrink-0 overflow-x-auto">
         {tabs.map((tab, i) => (
-          <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-mono cursor-pointer transition-all ${activeTab === i ? "bg-[#6c63ff] text-white" : "bg-[#1a1a24] text-[#7a7a9a] hover:text-white"}`}
+          <div key={i}
+            className={`flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-[12px] font-mono cursor-pointer transition-all whitespace-nowrap ${activeTab === i ? "bg-[#6c63ff] text-white" : "bg-[#1a1a24] text-[#7a7a9a] hover:text-white"}`}
             onClick={() => setActiveTab(i)}>
             {tab.name}
             {tabs.length > 1 && (
@@ -171,8 +172,8 @@ export default function SpreadsheetViewer({ data, onDataChange }: { data: SheetD
             )}
           </div>
         ))}
-        <button onClick={addRow} className="text-[11px] text-[#7a7a9a] hover:text-[#6c63ff] transition-colors font-mono flex items-center gap-1 ml-2">+ Add row</button>
-        <button onClick={addTab} className="text-[11px] text-[#7a7a9a] hover:text-[#00d4aa] transition-colors font-mono flex items-center gap-1 ml-auto">+ New sheet</button>
+        <button onClick={addRow} className="text-[10px] sm:text-[11px] text-[#7a7a9a] hover:text-[#6c63ff] transition-colors font-mono flex items-center gap-1 ml-2 whitespace-nowrap">+ Row</button>
+        <button onClick={addTab} className="text-[10px] sm:text-[11px] text-[#7a7a9a] hover:text-[#00d4aa] transition-colors font-mono flex items-center gap-1 ml-auto whitespace-nowrap">+ Sheet</button>
       </div>
     </div>
   );
